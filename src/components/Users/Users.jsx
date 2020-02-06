@@ -25,7 +25,7 @@ const Users = (props) => {
                     </span>
                     <span>
                         <span>
-                            <div>{u.fullName}</div>
+                            <div>{u.fullName}?</div>
                             <div>{u.status}</div>
                         </span>
                         <span>
