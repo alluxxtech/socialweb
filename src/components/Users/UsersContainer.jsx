@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     follow: (userId) => dispatch(followAc(userId)),
     unfollow: (userId) => dispatch(unfollowAc(userId)),
-    setUsersAc: users => dispatch(setUsersAc(users))
+    setUsers: users => dispatch(setUsersAc(users))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);
