@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from '../../assets/images/images.jpg';
 
-export const Users = (containerProps) => {
+export default (containerProps) => {
     const { containerProps: props, onPageChanged } = containerProps; 
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     const pages = [];
