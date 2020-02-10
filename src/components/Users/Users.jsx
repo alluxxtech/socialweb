@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from '../../assets/images/images.jpg';
+import { NavLink } from 'react-router-dom';
 
 export default (containerProps) => {
     const { containerProps: props, onPageChanged } = containerProps; 
@@ -27,7 +28,9 @@ export default (containerProps) => {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img className={styles.userAvatar} src={u.photos.small !== null ? u.photos.small : userPhoto } alt='avatar' />
+                            <NavLink to={'/profile/' + u.id}>
+                                <img className={styles.userAvatar} src={u.photos.small !== null ? u.photos.small : userPhoto } alt='avatar' />
+                            </NavLink>
                         </div>
                             { u.followed 
                             ? <button onClick={() => { props.unfollow(u.id) }}>Unfollow</button>
