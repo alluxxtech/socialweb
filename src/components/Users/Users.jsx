@@ -2,24 +2,25 @@ import React from 'react';
 import styles from './Users.module.css';
 import userPhoto from '../../assets/images/images.jpg';
 import { NavLink } from 'react-router-dom';
+import { userApi } from '../../api/api';
 
 export default (containerProps) => {
-    const { containerProps: props, onPageChanged } = containerProps; 
+    const { containerProps: props, onPageChanged} = containerProps; 
+    console.log('props.followedUsers: ', props.followedUsers)
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     const pages = [];
     for (let i = 1; i <= pagesCount; i++){
         pages.push(i);
     }
-    
     return (
         <div>
             <div>
-                {pages.map(p =>
-                    <span
-                        onClick={(e)=> {
+                {pages.map((p, index) => <span
+                            key={index}
+                            onClick={(e)=> {
                             onPageChanged(p)
                         }} 
-                        className={props.currentPage === p && styles.selectedPage}>
+                        className={props.currentPage === p ? styles.selectedPage : null}>
                         {p}
                     </span>
                 )}
@@ -32,12 +33,37 @@ export default (containerProps) => {
                                 <img className={styles.userAvatar} src={u.photos.small !== null ? u.photos.small : userPhoto } alt='avatar' />
                             </NavLink>
                         </div>
-                            { u.followed 
-                            ? <button onClick={() => { props.unfollow(u.id) }}>Unfollow</button>
-                                :
-                                <button onClick={() => { props.follow(u.id) }}>Follow</button>
+                            { u.followed ? 
+                                <button 
+                                    disabled={props.followedUsers.some(item => item === u.id)}
+                                    onClick={() => {
+                                        props.toggleFollowedProcess(true, u.id);
+                                        userApi.unfollowUser(u.id)
+                                        .then(resolve => {
+                                            if (resolve.resultCode === 0) {
+                                                props.unfollow(u.id) 
+                                            }
+                                            props.toggleFollowedProcess(false, u.id);
+                                        })
+                                    }}>
+                                    Unfollow
+                                </button> :
+                                <button
+                                    disabled={props.followedUsers.some(item => item === u.id)}
+                                    onClick={() => {
+                                        props.toggleFollowedProcess(true, u.id);
+                                        userApi.followUser(u.id)
+                                        .then(resolve => {
+                                            if (resolve.resultCode === 0) {
+                                                props.follow(u.id)
+                                            }
+                                            props.toggleFollowedProcess(false, u.id);
+                                        }) 
+                                    }}>
+                                        Follow
+                                </button>
                             }
-                    </span>
+                    </span> 
                     <span>
                         <span>
                             <div>{u.name}</div>

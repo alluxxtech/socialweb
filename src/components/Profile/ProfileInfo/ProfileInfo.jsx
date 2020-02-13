@@ -7,7 +7,7 @@ const ProfileInfo = (props) => {
     if(!props.profile) {
         return <Preloader isFetching={true}/>
     }
-
+        
     return (
         <div>
             <div>
