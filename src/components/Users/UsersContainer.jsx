@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, toggleFetching, toggleFollowedProcess } from '../../redux/users-reducer';
 import { Preloader } from '../preloader/Preloader';
 import { userApi } from '../../api/api';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 class UsersComponent extends React.Component {
     componentDidMount() {
@@ -65,4 +67,7 @@ const mapDispatchToProps = {
     toggleFollowedProcess
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersComponent);
+export default compose(
+    withAuthRedirect,
+    connect(mapStateToProps, mapDispatchToProps)
+)(UsersComponent)
