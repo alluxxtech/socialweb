@@ -1,10 +1,10 @@
 const SEND_MESSAGE = 'SEND_MESSAGE';
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
 
-export const addMessageActionCreator = () => ({
-    type: SEND_MESSAGE
+export const addMessageActionCreator = message => ({
+    type: SEND_MESSAGE, message
 });
-export const updateNewMessageBody = (message) => ({
+export const updateNewMessageBody = message => ({
     type: UPDATE_NEW_MESSAGE_BODY, newMessage: message
 });
 
@@ -22,25 +22,17 @@ const initialState = {
         { id: 3, message: 'yo' },
         { id: 4, message: 'yo1' }
     ],
-    newMessageBody: ''
 }
 
 const dialogsReducer = (state = initialState, action) => {
-    if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-        return {
-            ...state,
-            newMessageBody: action.newMessage
-        }
-    }
-    else if (action.type === SEND_MESSAGE) {
+    if (action.type === SEND_MESSAGE) {
         const newMessage = {
             id: 8,
-            message: state.newMessageBody
+            message: action.message
         }
         return {
             ...state,
             messages: [...state.messages, newMessage],
-            newMessageBody: ''
         }
     }
     return state;
