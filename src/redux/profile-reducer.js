@@ -1,8 +1,10 @@
-import { userApi } from "../api/api";
+import { userApi, profileApi } from "../api/api";
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
+const UPDATE_PROFILE_STATUS = 'UPDATE_PROFILE_STATUS';
 
 export const addPostActionCreator = () => ({
     type: ADD_POST
@@ -10,8 +12,16 @@ export const addPostActionCreator = () => ({
 export const updateNewPostActionCreator = (text) => ({
     type: UPDATE_NEW_POST_TEXT, newText: text
 });
+
 const setUserProfile = (profile) => ({
     type: SET_USER_PROFILE, profile
+});
+const setProfileStatus = status => ({
+    type: SET_PROFILE_STATUS, status
+});
+
+const updateProfileStatusAction = (status) => ({
+    type: UPDATE_PROFILE_STATUS, status
 });
 
 export const getUserProfile = userId => dispatch => {
@@ -20,13 +30,29 @@ export const getUserProfile = userId => dispatch => {
     });
 }
 
+export const getProfileStatus = userId => dispatch => {
+    profileApi.getStatus(userId)
+        .then(resolve => { 
+            dispatch(setProfileStatus(resolve.data))
+    })
+}
+
+export const updateProfileStatus = status => dispatch => {
+    profileApi.updateStatus(status).then(resolve => {
+        if (resolve.data.resultCode === 0){
+            dispatch(updateProfileStatusAction(status))
+        }
+    })
+}
+
 const initialState = {
     posts: [
         { id: 1, message: 'Hi, how are you?', likesCount: 23 },
         { id: 2, message: 'Its my first post', likesCount: 2 }
     ],
     newPostText: 'itkamasutra',
-    profile: null
+    profile: null,
+    status: null
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -51,6 +77,16 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profile: action.profile
+            }
+        case SET_PROFILE_STATUS:
+            return {
+                ...state,
+                status: action.status
+            }
+        case UPDATE_PROFILE_STATUS: 
+            return {
+                ...state,
+                status: action.status
             }
         default:
             return state

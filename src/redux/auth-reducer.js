@@ -5,7 +5,7 @@ const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA';
 const setAuthUserData = (userId, email, login) => ({ 
     type: SET_AUTH_USER_DATA,
     data: {
-        userId, 
+        userId,
         email,
         login
     }

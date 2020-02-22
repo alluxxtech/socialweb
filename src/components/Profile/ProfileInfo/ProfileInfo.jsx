@@ -15,10 +15,13 @@ const ProfileInfo = (props) => {
                 <img src='https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' alt='alt text' />
             </div> */}
             <div className={s.descriptionBlock}>
-                <div>
+                {/* <div>
                     <img src={props.profile.photos.large} alt='some'/>
+                </div> */}
+                <div>
+                    <img src='https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' alt='alt text' />
                 </div>
-                <ProfileStatus status={'Hello my friends'}/>
+                <ProfileStatus {...props}/>
                 ava+description
             </div>
         </div>
