@@ -3,6 +3,7 @@ import Header from './Header';
 // import axios from 'axios';
 // import s from './Header.module.css';
 import { connect } from 'react-redux';
+import { logout } from './../../redux/auth-reducer';
 import { getAuthUserData } from './../../redux/auth-reducer';
 // import { authApi } from './../../api/api';
 
@@ -35,5 +36,6 @@ const mapStateToProps = (state) => ({
 }) 
 
 export default connect(mapStateToProps, {
-    getAuthUserData
+    getAuthUserData,
+    logout
 }) (HeaderContainer);
