@@ -2,7 +2,8 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 import { Preloader } from '../../preloader/Preloader';
-import ProfileStatus from './ProfileStatus';
+// import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 const ProfileInfo = (props) => {
     if(!props.profile) {
@@ -21,7 +22,7 @@ const ProfileInfo = (props) => {
                 <div>
                     <img src='https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' alt='alt text' />
                 </div>
-                <ProfileStatus {...props}/>
+                <ProfileStatusWithHooks {...props}/>
                 ava+description
             </div>
         </div>

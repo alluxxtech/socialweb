@@ -9,19 +9,19 @@ import { getAuthUserData } from './../../redux/auth-reducer';
 
 class HeaderContainer extends React.Component {
     componentDidMount() {
-        try {
-            this.props.getAuthUserData()
-            // authApi.me()
-            // .then(resolve => {
-            //     if(resolve.data.resultCode === 0){
-            //         const { id, email, login } = resolve.data.data; 
-            //         this.props.setAuthUserData(id, email, login);
-            //     }
-            // })
-        }
-        catch(e) {
-            console.log('Error auth/me get response', e.response);
-        }
+        // try {
+        //     this.props.getAuthUserData()
+        //     // authApi.me()
+        //     // .then(resolve => {
+        //     //     if(resolve.data.resultCode === 0){
+        //     //         const { id, email, login } = resolve.data.data; 
+        //     //         this.props.setAuthUserData(id, email, login);
+        //     //     }
+        //     // })
+        // }
+        // catch(e) {
+        //     console.log('Error auth/me get response', e.response);
+        // }
     }
     render() {
         return (

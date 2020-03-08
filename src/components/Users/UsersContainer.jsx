@@ -6,6 +6,7 @@ import { Preloader } from '../preloader/Preloader';
 import { userApi } from '../../api/api';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { getUsers, getPageSize, getTotalUsersCount, getPage, getIsFetching, getFollowedUsers, getUsersReselect } from '../../redux/user-selectors';
 
 class UsersComponent extends React.Component {
     componentDidMount() {
@@ -50,12 +51,12 @@ class UsersComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followedUsers: state.usersPage.followedUsers
+    users: getUsersReselect(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getPage(state),
+    isFetching: getIsFetching(state),
+    followedUsers: getFollowedUsers(state)
 });
 const mapDispatchToProps = {
     follow,
@@ -68,6 +69,6 @@ const mapDispatchToProps = {
 };
 
 export default compose(
-    withAuthRedirect,
+    // withAuthRedirect,
     connect(mapStateToProps, mapDispatchToProps)
 )(UsersComponent)
