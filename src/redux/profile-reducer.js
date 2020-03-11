@@ -26,19 +26,16 @@ export const getUserProfile = userId => dispatch => {
     });
 }
 
-export const getProfileStatus = userId => dispatch => {
-    profileApi.getStatus(userId)
-        .then(resolve => { 
-            dispatch(setProfileStatus(resolve.data))
-    })
+export const getProfileStatus = userId => async dispatch => {
+    const response = profileApi.getStatus(userId); 
+    dispatch(setProfileStatus(response.data));
 }
 
-export const updateProfileStatus = status => dispatch => {
-    profileApi.updateStatus(status).then(resolve => {
-        if (resolve.data.resultCode === 0){
-            dispatch(updateProfileStatusAction(status))
-        }
-    })
+export const updateProfileStatus = status => async dispatch => {
+    const response = await profileApi.updateStatus(status);
+    if (response.data.resultCode === 0){
+        dispatch(updateProfileStatusAction(status))
+    }
 }
 
 const initialState = {

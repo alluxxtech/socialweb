@@ -1,23 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, lazy } from 'react';
 import './App.css';
 import { Route, withRouter } from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
-import UsersContainer from './components/Users/UsersContainer';
+// import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
+// import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Login from './components/Login/login';
 import { initializeApp } from './redux/initialized-reducer';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Preloader } from './components/preloader/Preloader';
+import withSuspense from './hoc/withSuspense';
+// import { Preloader } from './components/preloader/Preloader';
+const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
+// const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
+const UsersContainer = lazy(() => import('./components/Users/UsersContainer'));
 
 function App(props) {
-  const [query, setQuery] = useState('react');
   
   useEffect(() => {
     props.initializeApp();
-  },[query])
+  },[])
 
   if (!props.initialized) {
     return (
@@ -26,23 +29,20 @@ function App(props) {
       </div>
     )
   }
-   
+
   return (
       <div className='app-wrapper'>
         <HeaderContainer />
         <Navbar />
         <div className='app-wrapper-content'>
           <Route path='/dialogs' 
-            render={() => <DialogsContainer
-              />} 
+            render={withSuspense(DialogsContainer)}
           />
           <Route path='/profile/:userId?' 
-            render={() => <ProfileContainer 
-              />} 
+            render={() => <ProfileContainer/>} 
           />
           <Route path='/users'
-            render={() => <UsersContainer
-            />}
+            render={withSuspense(UsersContainer)}
           />
           <Route path='/login'
             render={() => <Login

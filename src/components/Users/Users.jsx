@@ -3,28 +3,14 @@ import styles from './Users.module.css';
 import userPhoto from '../../assets/images/images.jpg';
 import { NavLink } from 'react-router-dom';
 import { userApi } from '../../api/api';
+import Pagination from '../common/Pagination/Pagination';
 
 export default (containerProps) => {
     const { containerProps: props, onPageChanged} = containerProps; 
-    console.log('props.followedUsers: ', props.followedUsers)
-    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    const pages = [];
-    for (let i = 1; i <= pagesCount; i++){
-        pages.push(i);
-    }
+    
     return (
         <div>
-            <div>
-                {pages.map((p, index) => <span
-                            key={index}
-                            onClick={(e)=> {
-                            onPageChanged(p)
-                        }} 
-                        className={props.currentPage === p ? styles.selectedPage : null}>
-                        {p}
-                    </span>
-                )}
-            </div>
+            <Pagination {...{ onPageChanged, ...props }}/>
             {
                 props.users.map(u => <div key={u.id}>
                     <span>

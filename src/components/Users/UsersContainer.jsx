@@ -5,8 +5,8 @@ import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, toggleF
 import { Preloader } from '../preloader/Preloader';
 import { userApi } from '../../api/api';
 import { compose } from 'redux';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-import { getUsers, getPageSize, getTotalUsersCount, getPage, getIsFetching, getFollowedUsers, getUsersReselect } from '../../redux/user-selectors';
+// import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { getPageSize, getTotalUsersCount, getPage, getIsFetching, getFollowedUsers, getUsersReselect } from '../../redux/user-selectors';
 
 class UsersComponent extends React.Component {
     componentDidMount() {
